@@ -3,9 +3,9 @@
 	<header>
 		<div class="ass1-header">
 			<div class="container">
-				<a href="index.html" class="ass1-logo">
+				<router-link to="/" tag="a" class="ass1-logo">
 					Kang Meme
-				</a>
+				</router-link>
 				<nav>
 					<ul class="ass1-header__menu">
 						<li>
@@ -90,12 +90,12 @@
 						</label>
 					</form>
 				</div>
-				<a href="#" class="ass1-header__btn-upload ass1-btn">
+				<router-link to="/upload-meme" tag="a" class="ass1-header__btn-upload ass1-btn">
 					<i class="icon-Upvote"></i> Upload
-				</a>
-				<a href="dang-nhap.html" class="ass1-header__btn-upload ass1-btn">
+				</router-link>
+				<router-link to="/login" tag="a" class="ass1-header__btn-upload ass1-btn">
 					Login
-				</a>
+				</router-link>
 			</div>
 		</div>
 	</header>
