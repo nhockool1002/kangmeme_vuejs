@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <comp-header />
+    <comp-header v-if="isRenderHeader" />
     <router-view></router-view>
     <comp-footer />
   </div>
@@ -22,6 +22,14 @@ export default {
   data () {
     return {
       
+    }
+  },
+  computed: {
+    isRenderHeader() {
+      var arrNotRender = ['login', 'register'];
+      var routeName = this.$route.name;
+      if (arrNotRender.indexOf(routeName) !== -1) return false;
+      return true;
     }
   }
 }
