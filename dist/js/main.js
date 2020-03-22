@@ -7,10 +7,7 @@ jQuery(function($) {
     =             MAIN FUNCTION             =
     =======================================*/
     zendvn_meme.navigation = function() {
-        $(".ass1-header__menu li > a").click(function(e) {
-            // $(".ass1-header__nav").hide();
-            $(this).parent().find(".ass1-header__nav").slideToggle(300, 'swing');
-        });
+        
     }
     zendvn_meme.isotope = function() {
         var $gridMasonry = $('.ass1-section__isotope-init').masonry({

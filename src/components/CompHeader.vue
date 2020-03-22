@@ -102,8 +102,15 @@
 </template>
 
 <script>
+import $ from "jquery";
 export default {
-	name: 'comp-header'
+	name: 'comp-header',
+	mounted() {
+		$(".ass1-header__menu li > a").click(function(e) {
+            // $(".ass1-header__nav").hide();
+            $(this).parent().find(".ass1-header__nav").slideToggle(300, 'swing');
+        });
+	}
 }
 </script>
 
