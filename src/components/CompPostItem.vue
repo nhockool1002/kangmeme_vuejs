@@ -1,9 +1,9 @@
 <template>
-<div class="ass1-section__item">
+<div class="ass1-section__item" v-if="post">
             <div class="ass1-section">
-                <comp-post-item-head />
-                <comp-post-item-content />
-                <comp-post-item-footer />
+                <comp-post-item-head v-bind:post="post" />
+                <comp-post-item-content v-bind:post="post" />
+                <comp-post-item-footer v-bind:post="post" />
             </div>
         </div>
 </template>
@@ -19,6 +19,9 @@ export default {
         CompPostItemHead,
         CompPostItemContent,
         CompPostItemFooter
+    },
+    props:{
+        post: {type: Object, default: null}
     }
 }
 </script>
