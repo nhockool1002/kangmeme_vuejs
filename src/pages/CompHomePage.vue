@@ -19,12 +19,25 @@
 <script>
 import CompPostList from '../components/CompPostList'
 import CompSidebar from '../components/CompSidebar'
-
+import { mapActions } from 'vuex';
 export default {
 	name: 'comp-home-page',
 	components: {
 		CompPostList,
-		CompSidebar
+		CompSidebar,
+	},
+	methods:{
+		...mapActions(['getListPostHasPaging', 'getListPostHasCategory'])
+	},
+	watch: {
+		$route(to, from) {
+			var tagIndex = to.query.tagIndex;
+			if (tagIndex) {
+				this.getListPostHasPaging({ tagIndex: tagIndex})
+			} else {
+				this.getListPostHasPaging({})
+			}
+		}
 	}
 }
 </script>
