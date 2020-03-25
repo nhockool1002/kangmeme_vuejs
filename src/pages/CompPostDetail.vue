@@ -28,14 +28,39 @@ import CompPostReaction from '../components/CompPostReaction'
 import CompPostCommentAdd from '../components/CompPostCommentAdd'
 import CompPostComments from '../components/CompPostComments'
 import CompSidebar from '../components/CompSidebar'
+
+import { mapActions } from 'vuex'
 export default {
 	name: 'comp-post-detail',
+	data() {
+		return {
+			postID: this.$route.params.id
+		}
+	},
 	components: {
 		CompPostItem,
 		CompPostReaction,
 		CompPostCommentAdd,
 		CompPostComments,
 		CompSidebar
+	},
+	methods: {
+		...mapActions(['getPostDetailById'])
+	},
+	watch: {
+		$route(to, from) {
+			this.postID = to.params.id;
+			this.getPostDetailById(this.postID).then(res => {
+				if (!res.ok) { this.$router.push('/') }
+			})
+		}
+	},
+	created() {
+		this.postID = this.$route.params.id;
+		this.getPostDetailById(this.postID).then(res => {
+			if (!res.ok) { this.$router.push('/') }
+		})
+
 	}
 }
 </script>

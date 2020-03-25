@@ -27,17 +27,17 @@ export default {
 		CompSidebar,
 	},
 	methods:{
-		...mapActions(['getListPostHasPaging', 'getListPostHasCategory'])
+		...mapActions(['getListPostHasPaging'])
 	},
 	watch: {
 		$route(to, from) {
 			var tagIndex = to.query.tagIndex;
-			if (tagIndex) {
-				this.getListPostHasPaging({ tagIndex: tagIndex})
-			} else {
-				this.getListPostHasPaging({})
-			}
+			this.getListPostHasPaging({ tagIndex: tagIndex})
 		}
+	},
+	created() {
+		var tagIndex = this.$route.query.tagIndex;
+		this.getListPostHasPaging({ tagIndex: tagIndex})
 	}
 }
 </script>

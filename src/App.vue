@@ -36,9 +36,6 @@ export default {
 			if (arrNotRender.indexOf(routeName) !== -1) return false;
 			return true;
 		}
-	},
-	created() {
-		this.$store.dispatch('getListPostHasPaging', { })
 	}
 }
 </script>
