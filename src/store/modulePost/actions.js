@@ -25,12 +25,15 @@ export default {
             console.log('error :', error)
         }
     },
-    async getPostDetailById({commit}, postID) {
+    async getPostDetailById({commit, dispatch}, postID) {
         commit('SET_LOADING', true)
         try {
             var rs = await axiosIntance.get('/post/post.php?postid=' + postID);
-            commit('SET_LOADING', false)
             if (rs.data.status == 200) {
+                
+                await dispatch('getUserById', rs.data.data.post.USERID);
+                commit('SET_POST_DETAIL', rs.data.data)
+                commit('SET_LOADING', false)
                 return {
                     ok: true,
                     error: null,
