@@ -13,7 +13,7 @@ import CompHeader from './components/CompHeader';
 import CompFooter from './components/CompFooter';
 import CompHomePage from './pages/CompHomePage'
 import Loading from './components/Loading'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
 	name: 'app',
@@ -36,6 +36,12 @@ export default {
 			if (arrNotRender.indexOf(routeName) !== -1) return false;
 			return true;
 		}
+	},
+	created() {
+		this.checkLogin();
+	},
+	methods: {
+		...mapActions(['checkLogin'])
 	}
 }
 </script>

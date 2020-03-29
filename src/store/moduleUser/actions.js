@@ -1,5 +1,5 @@
 import axiosIntance from '../../plugins/axios'
-
+import { parseJwt } from '../../helpers'
 export default {
     async getUserById({ commit }, userid) {
         try {
@@ -19,7 +19,7 @@ export default {
             }
         }
     },
-    async login({commit}, { email = null, password = ''}) {
+    async login({commit, dispatch}, { email = '', password = ''}) {
         commit('SET_LOADING', true)
         try {
             var data = {
@@ -31,10 +31,11 @@ export default {
             if (rs.data.status == 200) {
                 commit('SET_USER_INFO', rs.data.user);
                 commit('SET_LOGIN_INFO', rs.data);
+                let resultPostUser = await dispatch('getPostByUserId', rs.data.user.USERID);
                 return {
                     ok: true,
                     error: null,
-                    data: rs.data.user
+                    data: rs.data
                 }
             } else {
                 return {
@@ -49,5 +50,66 @@ export default {
                 error: error.message
             }
         }
-    } 
+    },
+    async logout({ commit }) {
+        commit('SET_LOGOUT');
+    },
+    async checkLogin({ commit, dispatch }) {
+        try {
+            var tokenLocal = localStorage.getItem('ACCESS_TOKEN');
+            var userObj = parseJwt(tokenLocal);
+            if (userObj) {
+                let promiseUser = dispatch('getUserById', userObj.id);
+                let promisPostUser = dispatch('getPostByUserId', userObj.id);
+                let [resultUser, resultPostUserById] = await Promise.all([promiseUser, promisPostUser]);
+
+                if (resultUser.ok) {
+                    let data = {
+                        user : resultUser.data,
+                        token: tokenLocal
+                    }
+                    commit('SET_LOGIN_INFO', data)
+                    return {
+                        ok: true,
+                        error: null
+                    }
+                }
+            }
+            return {
+                ok: false
+            }
+        } catch (error) {
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    async getPostByUserId( {commit}, userid ) {
+        try {
+            let config = {
+                params: {
+                    userid : userid
+                },
+                headers: {
+                    'Accept' : 'application/json',
+                    'Authorization' : 'Bearer ' + localStorage.getItem('ACCESS_TOKEN')
+                }
+            }
+            var result = await axiosIntance.get('/post/getListPostUserID.php', config)
+            console.log('result GetlistPostUserbyID', result.data);
+            if (result.data.status === 200) {
+                let ObjData = {
+                    posts : result.data.posts,
+                    userid : userid
+                }
+                commit('SET_USER_POSTS', ObjData)
+            }
+        } catch (error) {
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    }
 }
