@@ -12,6 +12,8 @@ import CompProfile from './pages/CompProfile'
 import CompResetPassword from './pages/CompResetPassword'
 import CompUploadMeme from './pages/CompUploadMeme'
 
+import { ifNotAuthenticate, ifAuthenticate} from './plugins/authenticate'
+
 const routes = [
 	{
 		path: '/',
@@ -21,12 +23,14 @@ const routes = [
 	{
 		path: '/login',
 		name: 'login',
-		component: CompLogin
+		component: CompLogin,
+		beforeEnter: ifNotAuthenticate
 	},
 	{
 		path: '/register',
 		name: 'register',
-		component: CompRegister
+		component: CompRegister,
+		beforeEnter: ifNotAuthenticate
 	},
 	{
 		path: '/post-detail/:id',
@@ -36,7 +40,8 @@ const routes = [
 	{
 		path: '/user/:id',
 		name: 'history-meme',
-		component: CompHistoryMeme
+		component: CompHistoryMeme,
+		beforeEnter: ifAuthenticate
 	},
 	{
 		path: '/user/:id/profile',

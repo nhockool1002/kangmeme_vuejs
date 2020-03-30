@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { updateLocale } from 'moment';
+import { CONFIG_TOKEN_CODE } from '../../constant'
 export default {
     SET_USER_INFO(state, user) {
         Vue.set(state.users, user.USERID, user)
@@ -8,13 +9,13 @@ export default {
         Vue.set(state.posts, userid, posts)
     },
     SET_LOGIN_INFO(state, { user = null, token = ''}) {
-        localStorage.setItem('ACCESS_TOKEN', token)
+        localStorage.setItem(CONFIG_TOKEN_CODE, token)
         state.currentUser = user;
-        state.ACCESS_TOKEN = token;
+        state[CONFIG_TOKEN_CODE] = token;
     },
     SET_LOGOUT(state) {
-        state.ACCESS_TOKEN = '',
+        state[CONFIG_TOKEN_CODE] = '',
         state.currentUser = null,
-        localStorage.removeItem('ACCESS_TOKEN')
+        localStorage.removeItem(CONFIG_TOKEN_CODE)
     }
 }

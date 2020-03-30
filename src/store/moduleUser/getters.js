@@ -1,7 +1,8 @@
 import { parseJwt } from '../../helpers'
+import { CONFIG_TOKEN_CODE } from '../../constant'
 export default {
     isLogin: state => {
-        let userObj = parseJwt(state.ACCESS_TOKEN);
+        let userObj = parseJwt(state[CONFIG_TOKEN_CODE]);
         if (userObj) {
             return true;
         } else {

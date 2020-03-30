@@ -1,7 +1,9 @@
 const PAGESIZE = 3
 const CURRENT_PAGE = 1
+const CONFIG_TOKEN_CODE = 'DKMKANG'
 
 export {
     PAGESIZE,
-    CURRENT_PAGE
+    CURRENT_PAGE,
+    CONFIG_TOKEN_CODE
 }

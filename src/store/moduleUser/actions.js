@@ -1,5 +1,7 @@
 import axiosIntance from '../../plugins/axios'
 import { parseJwt } from '../../helpers'
+import { CONFIG_TOKEN_CODE } from '../../constant'
+
 export default {
     async getUserById({ commit }, userid) {
         try {
@@ -56,7 +58,7 @@ export default {
     },
     async checkLogin({ commit, dispatch }) {
         try {
-            var tokenLocal = localStorage.getItem('ACCESS_TOKEN');
+            var tokenLocal = localStorage.getItem(CONFIG_TOKEN_CODE);
             var userObj = parseJwt(tokenLocal);
             if (userObj) {
                 let promiseUser = dispatch('getUserById', userObj.id);
@@ -93,7 +95,7 @@ export default {
                 },
                 headers: {
                     'Accept' : 'application/json',
-                    'Authorization' : 'Bearer ' + localStorage.getItem('ACCESS_TOKEN')
+                    'Authorization' : 'Bearer ' + localStorage.getItem(CONFIG_TOKEN_CODE)
                 }
             }
             var result = await axiosIntance.get('/post/getListPostUserID.php', config)
