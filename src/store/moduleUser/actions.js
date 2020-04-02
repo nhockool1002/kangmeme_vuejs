@@ -113,5 +113,30 @@ export default {
                 error: error.message
             }
         }
+    },
+    async getLogin({commit, dispatch}, data) {
+        try {
+            var result = await axiosIntance.post('/member/register.php', data);
+            if (result.data.code === 200) {
+                commit('SET_USER_INFO', result.data.user);
+                commit('SET_LOGIN_INFO', result.data);
+                let resultPostUser = await dispatch('getPostByUserId', result.data.user.USERID);
+                return {
+                    ok: true,
+                    error: null,
+                    data: result.data
+                }
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error,
+                }
+            }
+        } catch (error) {
+            return {
+                ok: false,
+                error: error.error
+            }
+        }
     }
 }

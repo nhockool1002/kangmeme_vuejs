@@ -14,7 +14,7 @@
                             <a href="#">Copy</a>
                         </div>
                         <div class="ass1-login__send">
-                            <a href="dang-ky.html">Đăng ký một tài khoản</a>
+                            <router-link to="/register">Đăng ký một tài khoản</router-link>
                             <button type="submit" class="ass1-btn">Đăng nhập</button>
                         </div>
                     </form>
