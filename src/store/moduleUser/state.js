@@ -1,3 +1,8 @@
+import {CONFIG_TOKEN_CODE} from '../../constant'
+
 export default {
-    currentUser : null
+    [CONFIG_TOKEN_CODE]: '',
+    currentUser : null,
+    users: {},
+    posts: {}
 }
